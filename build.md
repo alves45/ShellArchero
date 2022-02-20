@@ -1,4 +1,4 @@
-# Building CharArchero
+# Building ShellArchero
 
 Esse arquivo contém um passo a passo para replicar o game em seu computador, após o compilação o game irá estar em ./build.
 

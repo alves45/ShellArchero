@@ -6,12 +6,12 @@ Esse arquivo contém um passo a passo para replicar o game em seu computador, ap
 
 - Instale o [MinGW](https://www.mingw-w64.org/) e o gcc nas variáveis de ambiente;
 - Instale o [Windows Terminal](https://www.microsoft.com/pt-br/p/windows-terminal/9n0dx20hk701?SilentAuth=1&wa=wsignin1.0#activetab=pivot:overviewtab).
-  O jogo utiliza [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) definidos pela norma [ISO/IEC 6429](https://www.ecma-international.org/publications-and-standards/standards/ecma-48/) de 1991, apenas com esse novo console é possível usar esse recurso no Windows, em outros sistemas operacionais esse padrão já é usado a bastante tempo;
+  O jogo utiliza [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) definidos pela norma [ISO/IEC 6429](https://www.ecma-international.org/publications-and-standards/standards/ecma-48/) de 1991, apenas com esse novo console é possível usar esse recurso no Windows, em outros sistemas operacionais esse padrão já é usado há muito tempo;
 - Execute no terminal:
   ```console
   make windows
   ```
-- O caso queira executar o programa utilize comando: (**lembrando de usar o Windows Terminal para a execução**)
+- Para executar o jogo utilize comando: (**lembrando de usar o Windows Terminal para a execução**)
   ```console
   make runWindows
   ```
@@ -24,7 +24,7 @@ Esse arquivo contém um passo a passo para replicar o game em seu computador, ap
   sudo apt-get install libncurses5-dev libncursesw5-dev
   ```
 
-- Instale o gcc, na maioria já vêm instalado na própria distro;
+- Instale o gcc, provavelmente já está instalado em conjunto com a distro;
 - Execute no terminal:
 
   ```console
@@ -46,7 +46,7 @@ Esse arquivo contém um passo a passo para replicar o game em seu computador, ap
 
 # Para devs
 
-Contém um passo a passo para permitir o desenvolvimento do game, está habilitado flags para gerar alarmes se houver problemas no código.
+Contém um passo a passo para permitir o desenvolvimento do game, em caso de problemas no código está habilitado flags na compilação para gerar alarmes.
 
 Para limpar o build basta executar:
 

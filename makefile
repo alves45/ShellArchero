@@ -20,6 +20,12 @@ windowsLinux: buildFolder
 buildFolder:
 	@mkdir -p build
 
+run:
+	./build/ShellArchero
+
+runWindows:
+	./build/ShellArchero.exe
+
 valgrind: build
 	valgrind build/ShellArchero
 

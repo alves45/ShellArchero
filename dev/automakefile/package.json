@@ -1,0 +1,21 @@
+{
+  "name": "ShellArchero",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "automakefile.js",
+  "scripts": {
+    "start": "node automakefile.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alves45/ShellArchero.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alves45/ShellArchero/issues"
+  },
+  "homepage": "https://github.com/alves45/ShellArchero#readme"
+}

@@ -1,12 +1,12 @@
 # Building ShellArchero
 
-Esse arquivo contém um passo a passo para replicar o game em seu computador, após o compilação o game estará em ./build.
+Esse arquivo contém um passo a passo para replicar o game em seu computador, após a compilação o game estará em ./build/.
 
 ## Windows
 
-- Instale o [MinGW](https://www.mingw-w64.org/) e o gcc nas variáveis de ambiente
+- Instale o [MinGW](https://www.mingw-w64.org/) e o gcc nas variáveis de ambiente;
 - Instale o [Windows Terminal](https://www.microsoft.com/pt-br/p/windows-terminal/9n0dx20hk701?SilentAuth=1&wa=wsignin1.0#activetab=pivot:overviewtab).
-  O jogo utiliza [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) definidos pela norma [ISO/IEC 6429](https://www.ecma-international.org/publications-and-standards/standards/ecma-48/) de 1991, apenas com esse novo console é possível usar esse recurso no Windows, em outros sistemas operacionais esse padrão já é usado a bastante tempo.
+  O jogo utiliza [ANSI escape code](https://en.wikipedia.org/wiki/ANSI_escape_code#24-bit) definidos pela norma [ISO/IEC 6429](https://www.ecma-international.org/publications-and-standards/standards/ecma-48/) de 1991, apenas com esse novo console é possível usar esse recurso no Windows, em outros sistemas operacionais esse padrão já é usado a bastante tempo;
 - Execute no terminal:
   ```console
   make windows

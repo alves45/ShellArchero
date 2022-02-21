@@ -22,12 +22,21 @@ buildFolder:
 
 run:
 	./build/ShellArchero
+	
 
 runWindows:
-	./build/ShellArchero.exe
+	@false
+	@./build/ShellArchero.exe
 
 valgrind: build
 	valgrind build/ShellArchero
 
-clear:
+clear: 
 	rm -rf build
+	rm -rf *.o
+
+sprites2c: buildFolder
+	gcc dev/sprites/sprites2c.c -o build/sprites2c
+	./build/sprites2c
+	
+

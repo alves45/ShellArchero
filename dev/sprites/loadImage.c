@@ -5,35 +5,34 @@
 #include "../../src/types/rustTypes.h"
 #include "../../src/types/image.h"
 
-image *loadImage(char *path)
+extern image *loadImage(char *path)
 {
     image *img = NULL;
     FILE *f = fopen(path, "rb");
 
     if (f == NULL)
     {
-        puts("Opening failed...");
+        printf("Opening failed...%s\n", path);
         return img;
     }
-
     u8 *result;
     fseek(f, 0, SEEK_END);
     u32 size = ftell(f);
 
     if (size > u32MAX)
     {
-        puts("Size is too big!");
+        printf("Size is too big!%s\n", path);
         fclose(f);
         return img;
     }
 
     fseek(f, 0, SEEK_SET);
-    result = malloc((u32)size);
+    result = malloc(size);
 
     if (size != fread(result, sizeof(u8), (u32)size, f))
     {
         free(result);
-        puts("Reading failed...");
+        printf("Reading failed...%s\n", path);
         fclose(f);
         return img;
     }
@@ -43,14 +42,14 @@ image *loadImage(char *path)
     if (size < 54)
     {
         free(result);
-        puts("Invalid file...");
+        printf("Invalid file...%s\n", path);
         return img;
     }
 
     if (result[0] != 'B' || result[1] != 'M')
     {
         free(result);
-        puts("Incorrect file header...");
+        printf("Incorrect file header...%s\n", path);
         return img;
     }
 
@@ -59,7 +58,7 @@ image *loadImage(char *path)
     if (specifiedSize != size)
     {
         free(result);
-        puts("File sizes don't match...");
+        printf("File sizes don't match...%s\n", path);
         return img;
     }
 
@@ -74,7 +73,7 @@ image *loadImage(char *path)
     if (bpp != 24 || !noCompression || width < 1 || height < 1 || width > 64000 || height > 64000)
     {
         free(result);
-        puts("Unsupported BMP format, only 24 bits per pixel are supported...");
+        printf("Unsupported BMP format, only 24 bits per pixel are supported...%s\n", path);
         return img;
     }
 
@@ -87,45 +86,35 @@ image *loadImage(char *path)
     if (pdOffset > size || pdOffset + imageBytes > size)
     {
         free(result);
-        puts("Invalid offset specified...");
+        printf("Invalid offset specified...%s\n", path);
         return img;
     }
-
     img = malloc(sizeof(image));
     img->height = height;
     img->width = width;
-    u32 imgSize = width * height;
-    img->pixels = (pixel *)malloc(sizeof(pixel) * imgSize);
-    pixel *ptr = img->pixels;
+    u32 imgSize = (width * height);
+    img->pixels = malloc(sizeof(pixel) * imgSize);
     u8 *srcPtr = &result[pdOffset];
-
+    u8 *pixels = (u8 *)img->pixels;
     for (u32 i = 0; i < imgSize; ++i)
     {
-        pixel *p = (img->pixels + sizeof(pixel) * i);
-        p->r = *srcPtr;
-        p->g = *(srcPtr + 1);
-        p->b = *(srcPtr + 2);
-
-        srcPtr += bytesPerPixel;
-
+        pixels[i] = *srcPtr++;
         if (i % width == 0)
         {
             srcPtr += rowBytes - usedRowBytes;
         }
     }
-
     free(result);
 
     return img;
 }
 
-void release(image *img)
+void releaseImage(image *img)
 {
     if (img)
     {
         if (img->pixels)
             free(img->pixels);
-
         free(img);
     }
 }

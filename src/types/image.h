@@ -11,8 +11,8 @@ typedef struct pixel
 } pixel;
 typedef struct image
 {
-    u16 width;
     u16 height;
+    u16 width;
     pixel *pixels;
 } image;
 

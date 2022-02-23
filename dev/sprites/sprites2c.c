@@ -5,11 +5,12 @@
 #include "../../src/types/rustTypes.h"
 #include "../../src/types/image.h"
 #include "image2c.c"
-// #include "../"
+#include "loadImage.c"
+
 // use "make sprites2c" for convert the sprites in to C code.
 #define extensionImageSupported "bmp"
-#define CFilePath "../../src/sprites.c"
-#define imagesDirPath "dev/sprites/images/bmps/"
+#define imagesDirPath "dev/sprites/images/fromGimp/"
+// #define imagesDirPath "images/fromGimp2/"
 
 void main()
 {
@@ -33,11 +34,26 @@ void main()
             continue;
         }
         u16 sizeImagePath = strlen(imagesDirPath) + strlen(imageFile->d_name) + 1;
-        char *imagePath = malloc(sizeImagePath);
-        memset(imagePath, 0, sizeImagePath); // becase the string use NULL for ended
+        char *imagePath = calloc(sizeof(char), sizeImagePath);
         strcat(imagePath, imagesDirPath);
         strcat(imagePath, imageFile->d_name);
-        // printf("%s\n", imagePath);
-        image2c(imagePath);
+        char *imageName = calloc(sizeof(char), sizeImagePath);
+        image *img = loadImage(imagePath);
+        GetLeafName(imagePath, imageName);
+        FixName(imageName);
+        printf("#ifndef %s_define\n#define %s_define 1\n", imageName, imageName);
+        printf("const char %sPixels [] = {\n", imageName);
+        u8 *data = (char *)img->pixels;
+        u32 i = 0;
+        for (; i < img->height * img->width * sizeof(pixel) - 1; i++)
+        {
+            printf("0x%02x, ", data[i]);
+        }
+        printf("0x%02x", data[++i]);
+        printf("}\n");
+        printf("const image %s = {.height = %d, .width = %d, .pixels = (pixel *)%sPixels};", imageName, img->height, img->width, imageName);
+        free(imagePath);
+        free(imageName);
+        releaseImage(img);
     }
 }

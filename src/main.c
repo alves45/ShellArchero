@@ -2,7 +2,8 @@
 #include <malloc.h>
 #include "types/image.h"
 #include "types/rustTypes.h"
-#include "sprites.h"
+// #include "sprites.h"
+#include "../dev/sprites/images/fromGimp2/greatGood.c"
 #define clear() printf("\033[H\033[J")
 #define hideCursor() printf("\e[?25l")
 #define showCursor() printf("\e[?25h")
@@ -12,22 +13,27 @@
 
 void main()
 {
-    u16 count = 0;
+    clear();
+    u32 count = 0;
     // printf("height: %d    width: %d    size:%d", smallRunDown.height, smallRunDown.width, sizeof(smallRunDownPixels));
     pixel *p;
-    u32 size = smallRunDown.height * smallRunDown.width;
+    image img = gimp_image;
+    u32 size = img.height * img.width;
     pixel *goodPixel = malloc(size * sizeof(pixel));
-    for (u32 i = 0; i < size; i++)
-        goodPixel[i] = smallRunDown.pixels[size - i];
-    for (u16 i = 0; smallRunDown.height > i; i++)
+    i32 j2 = 0;
+    // goodPixel = img.pixels;
+    // for (u32 i = 0; i < size; i++)
+    //     goodPixel[i] = img.pixels[size - i];
+    for (u32 i = 0; img.height > i; i++)
     {
-        for (u16 j = 0; j < smallRunDown.width; j++)
+        for (u32 j = 0; j < img.width; j++)
         {
-            pixel *p = &goodPixel[count++];
+            // pixel *p = &goodPixel[j + img.width * i];
+            pixel *p = &img.pixels[count++];
             bgColor(p->b, p->g, p->b);
-            gotoxy(j, i);
-            printf(" ");
+            gotoxy(j2 + j, i);
+            if (p->b != 0 && p->g != 0 && p->b != 0)
+                printf(" ");
         }
-        count++;
     }
 }

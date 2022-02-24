@@ -11,14 +11,15 @@
 #define textColor(r, g, b) printf("\x1b[38;2;%d;%d;%dm", r, g, b)
 #define bgColor(r, g, b) printf("\x1b[48;2;%d;%d;%dm", r, g, b)
 #define gotoxy(x, y) printf("\x1b[%d;%df", y, x)
-
+#define filterColor 90
 void main()
 {
     clear();
     initializeImages();
     u32 count = 0;
-    image img = greatRunUp;
+    image img = smallDying;
     pixel *p;
+    printf("%d     %d   \n", img.height, img.width);
     for (u32 i = 0; i < img.height; i++)
     {
         for (u32 j = 0; j < img.width; j++)
@@ -26,7 +27,7 @@ void main()
             pixel p = img.pixels[count++];
             bgColor(p.r, p.g, p.b);
             gotoxy(j, i);
-            if (p.g < (p.b + 200) && p.g < (p.r + 200))
+            if (p.g < (p.b + filterColor) && p.g < (p.r + filterColor))
                 printf(" ");
         }
     }

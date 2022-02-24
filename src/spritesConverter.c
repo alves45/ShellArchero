@@ -1,13 +1,27 @@
 #include <stdio.h>
 #include <malloc.h>
+#include <string.h>
 #include "types/image.h"
 #include "types/rustTypes.h"
 #include "sprites.h"
+#include "tools.c"
+
+// shrink( imageDst, imageSrc )
+#define countImages 11
+#define allImages                                                                                                                                                           \
+    {                                                                                                                                                                       \
+        &greatGood, &greatRunLeft, &greatRunUp, &smallDying, &greatRunDown, &greatRunRight2, &greatStopLeft, &smallRunDown, &greatRunLeft2, &greatRunRight, &greatStopRight \
+    }
+#define rallImages                                                                                                                                                                     \
+    {                                                                                                                                                                                  \
+        &rgreatGood, &rgreatRunLeft, &rgreatRunUp, &rsmallDying, &rgreatRunDown, &rgreatRunRight2, &rgreatStopLeft, &rsmallRunDown, &rgreatRunLeft2, &rgreatRunRight, &rgreatStopRight \
+    }
+
+image rgreatGood, rgreatRunLeft, rgreatRunUp, rsmallDying, rgreatRunDown, rgreatRunRight2, rgreatStopLeft, rsmallRunDown, rgreatRunLeft2, rgreatRunRight, rgreatStopRight;
 
 void initializeImages()
 {
-    u8 countImages = 11;
-    image *imgList[] = {&greatGood, &greatRunLeft, &greatRunUp, &smallDying, &greatRunDown, &greatRunRight2, &greatStopLeft, &smallRunDown, &greatRunLeft2, &greatRunRight, &greatStopRight};
+    image *imgList[] = allImages;
     for (u8 index = 0; index < countImages; index++)
     {
         image *img = imgList[index];
@@ -25,5 +39,4 @@ void initializeImages()
             img->pixels[i] = pixels[i];
         free(pixels);
     }
-    printf("aaaa\n");
 }

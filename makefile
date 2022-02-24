@@ -36,7 +36,8 @@ clear:
 	rm -rf *.o
 
 sprites2c: buildFolder
-	gcc dev/sprites/sprites2c.c -o build/sprites2c 
+	gcc dev/sprites/sprites2c.c -fdiagnostics-color=always -g -o build/sprites2c 
 	rm -f src/sprites.h
 	./build/sprites2c > src/sprites.h
+	
 

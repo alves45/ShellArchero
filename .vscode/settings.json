@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "image.h": "c",
-        "malloc.h": "c",
-        "typeinfo": "c",
-        "rusttypes.h": "c",
-        "stdint.h": "c"
-    }
-}

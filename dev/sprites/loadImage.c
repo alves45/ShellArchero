@@ -29,7 +29,6 @@ image *loadImage(char *location)
 
     fseek(f, 0, SEEK_SET);
     result = (unsigned char *)malloc((size_t)size);
-    char *result2 = result;
 
     if (size != fread(result, sizeof(unsigned char), (size_t)size, f))
     {
@@ -55,7 +54,7 @@ image *loadImage(char *location)
         return img;
     }
 
-    size_t specifiedSize = result[2] | result[3] << 8 | result[4] << 16 | result[5] << 24;
+    u32 specifiedSize = result[2] | result[3] << 8 | result[4] << 16 | result[5] << 24;
 
     if (specifiedSize != size)
     {
@@ -64,7 +63,7 @@ image *loadImage(char *location)
         return img;
     }
 
-    size_t pdOffset = result[10] | result[11] << 8 | result[12] << 16 | result[13] << 24;
+    u32 pdOffset = result[10] | result[11] << 8 | result[12] << 16 | result[13] << 24;
 
     unsigned long width = result[18] | result[19] << 8 | result[20] << 16 | result[21] << 24;
     unsigned long height = result[22] | result[23] << 8 | result[24] << 16 | result[25] << 24;
@@ -81,12 +80,12 @@ image *loadImage(char *location)
 
     int bytesPerPixel = (int)(bpp / 8);
 
-    size_t rowBytes = (width * bytesPerPixel + 3) / 4 * 4;
+    u32 rowBytes = (width * bytesPerPixel + 3) / 4 * 4;
 
-    printf("//Bytes per row: %lu\n", rowBytes);
+    printf("//Bytes per row: %u\n", rowBytes);
 
-    size_t usedRowBytes = width * bytesPerPixel;
-    size_t imageBytes = rowBytes * height;
+    u32 usedRowBytes = width * bytesPerPixel;
+    u32 imageBytes = rowBytes * height;
 
     if (pdOffset > size || pdOffset + imageBytes > size)
     {
@@ -99,21 +98,21 @@ image *loadImage(char *location)
     img->height = height;
     img->width = width;
 
-    size_t imgSize = width * height;
-    char *data = malloc(imgSize * sizeof(pixel));
+    u32 imgSize = width * height;
+    // char *data = malloc(imgSize * sizeof(pixel));
 
-    printf("//Offset: %lu\n", pdOffset);
-
-    for (size_t i = 0; i < imgSize * sizeof(pixel); ++i)
+    for (u32 i = 0; i < imgSize * sizeof(pixel)-1; ++i)
     {
-        data[i] = result[pdOffset + i];
+        // data[i] = result[pdOffset + i];
+        printf("0x%02x,\n",result[pdOffset++]);
         if (i % (width * sizeof(pixel)) == 0)
         {
             pdOffset += rowBytes - usedRowBytes;
         }
     }
-    img->pixels = (pixel *)data;
-    free(result2);
+    printf("0x%02x ",result[pdOffset++]);
+    // img->pixels = (pixel *)data;
+    free(result);
     return img;
 }
 
@@ -121,7 +120,7 @@ void releaseImage(image *img)
 {
     if (img)
     {
-        if (img->pixels)
+        if ((img->pixels)==NULL)
             free(img->pixels);
         free(img);
     }

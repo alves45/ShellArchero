@@ -9,8 +9,8 @@
 
 // use "make sprites2c" for convert the sprites in to C code.
 #define extensionImageSupported "bmp"
-#define imagesDirPath "dev/sprites/images/fromGimp/"
-// #define imagesDirPath "images/fromGimp2/"
+// #define imagesDirPath "dev/sprites/images/fromGimp/"
+#define imagesDirPath "images/fromGimp2/"
 
 void main()
 {
@@ -38,22 +38,19 @@ void main()
         strcat(imagePath, imagesDirPath);
         strcat(imagePath, imageFile->d_name);
         char *imageName = calloc(sizeof(char), sizeImagePath);
-        image *img = loadImage(imagePath);
+        char *imagePath2 = calloc(sizeof(char), sizeImagePath);
+        strcpy(imagePath2, imagePath);
         GetLeafName(imagePath, imageName);
         FixName(imageName);
         printf("#ifndef %s_define\n#define %s_define 1\n", imageName, imageName);
         printf("const char %sPixels [] = {\n", imageName);
-        u8 *data = (char *)img->pixels;
-        u32 i = 0;
-        for (; i < img->height * img->width * sizeof(pixel) - 1; i++)
-        {
-            printf("0x%02x, ", data[i]);
-        }
-        printf("0x%02x", data[++i]);
-        printf("}\n");
-        printf("const image %s = {.height = %d, .width = %d, .pixels = (pixel *)%sPixels};", imageName, img->height, img->width, imageName);
+        image *img = loadImage(imagePath2);
+        printf("};\n");
+        printf("const image %s = {.height = %d, .width = %d, .pixels = (pixel *)%sPixels};\n\n", imageName, img->height, img->width, imageName);
+        printf("#endif\n\n\n\n");
         free(imagePath);
         free(imageName);
+        free(imagePath2);
         releaseImage(img);
     }
 }

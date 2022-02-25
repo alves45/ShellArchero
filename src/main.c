@@ -1,56 +1,24 @@
-#include <stdio.h>
-#include <malloc.h>
-#include "types/image.h"
-#include "types/rustTypes.h"
-#include "sprites.h"
-#include "spritesConverter.c"
+#include "bind.h"
 
-#define clear() printf("\033[H\033[J")
-#define hideCursor() printf("\e[?25l")
-#define showCursor() printf("\e[?25h")
-#define textColor(r, g, b) printf("\x1b[38;2;%d;%d;%dm", r, g, b)
-#define bgColor(r, g, b) printf("\x1b[48;2;%d;%d;%dm", r, g, b)
-#define gotoxy(x, y) printf("\x1b[%d;%df", y, x)
-#define filterColor 90
 void main()
 {
-    clear();
+    printf("Iniciando o jogo...\n");
+    printf("O game precisa de bastante zoom out no console!!!\n");
+    printf("Tecle ESC para sair a qualquer momento... (menos nos proximos 3 segundos)\n");
     initializeImages();
-    u32 count = 0;
-    image img = smallDying;
-    pixel *p;
-    printf("%d     %d   \n", img.height, img.width);
-    for (u32 i = 0; i < img.height; i++)
+    sleep(3);
+    hideCursor();
+    clear();
+    printf("sdfsdfsdf\n");
+    pthread_t threads[NUM_THREADS];
+    for (u8 thread = 0; thread < NUM_THREADS; thread++)
     {
-        for (u32 j = 0; j < img.width; j++)
-        {
-            pixel p = img.pixels[count++];
-            bgColor(p.r, p.g, p.b);
-            gotoxy(j, i);
-            if (p.g < (p.b + filterColor) && p.g < (p.r + filterColor))
-                printf(" ");
-        }
+        pthread_create(&threads[thread], NULL, updateScreen, 0);
+    }
+    while (1)
+    {
+        u8 key = (u8)getch();
+        // if (key == KEY_ESC)
+        // if (key == KEY_DOWN)
     }
 }
-// u32 count = 0;
-// // printf("height: %d    width: %d    size:%d", smallRunDown.height, smallRunDown.width, sizeof(smallRunDownPixels));
-// pixel *p;
-// image img = gimp_image;
-// u32 size = img.height * img.width;
-// pixel *goodPixel = malloc(size * sizeof(pixel));
-// i32 j2 = 0;
-// // goodPixel = img.pixels;
-// // for (u32 i = 0; i < size; i++)
-// //     goodPixel[i] = img.pixels[size - i];
-// for (u32 i = 0; img.height > i; i++)
-// {
-//     for (u32 j = 0; j < img.width; j++)
-//     {
-//         // pixel *p = &goodPixel[j + img.width * i];
-//         pixel *p = &img.pixels[count++];
-//         bgColor(p->b, p->g, p->b);
-//         gotoxy(j2 + j, i);
-//         if (p->b != 0 && p->g != 0 && p->b != 0)
-//             printf(" ");
-//     }
-// }

@@ -1,7 +1,9 @@
 //#include <stdint-gcc.h> Baseado nesta biblioteca
+// Alterado os nomes para ficar semelhante a linguagem rust, pelo fato de serem tipos bem organizados (minha opinião)
 
-#ifndef _RUST_TYPES
-#define _RUST_TYPES 1
+#ifndef MY_TYPES
+
+#define MY_TYPES 1
 #ifdef __INT8_TYPE__
 typedef __INT8_TYPE__ i8;
 #endif
@@ -51,5 +53,47 @@ typedef double f64;
 
 #define f32MAX __FLT_MAX__
 #define f32MIN __FLT_MIN__
+
+#define _IMAGE_TYPE 1
+
+typedef struct size
+{
+    u16 height;
+    u16 width;
+} size;
+
+typedef struct pixel
+{
+    u8 r;
+    u8 g;
+    u8 b;
+} pixel;
+typedef struct image
+{
+    size size;
+    pixel *pixels;
+} image;
+
+typedef struct position
+{
+    i16 x;
+    i16 y;
+} position;
+
+typedef struct object
+{
+    u8 health;
+    u8 speed;
+    image *state;
+    u8 damage;
+    position posi;
+    position oldPosi;
+} object;
+
+typedef struct map
+{
+    size s;
+    pixel color;
+} map;
 
 #endif

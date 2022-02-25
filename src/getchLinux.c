@@ -1,5 +1,4 @@
-#include <termios.h>
-#include <stdio.h>
+#include "bind.h"
 
 // Muito obrigado S.S. Anne e niko códido extraído de https://stackoverflow.com/questions/7469139/what-is-the-equivalent-to-getch-getche-in-linux
 

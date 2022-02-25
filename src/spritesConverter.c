@@ -1,31 +1,12 @@
-#include <stdio.h>
-#include <malloc.h>
-#include <string.h>
-#include "types/image.h"
-#include "types/rustTypes.h"
-#include "sprites.h"
-#include "tools.c"
-
-// shrink( imageDst, imageSrc )
-#define countImages 11
-#define allImages                                                                                                                                                           \
-    {                                                                                                                                                                       \
-        &greatGood, &greatRunLeft, &greatRunUp, &smallDying, &greatRunDown, &greatRunRight2, &greatStopLeft, &smallRunDown, &greatRunLeft2, &greatRunRight, &greatStopRight \
-    }
-#define rallImages                                                                                                                                                                     \
-    {                                                                                                                                                                                  \
-        &rgreatGood, &rgreatRunLeft, &rgreatRunUp, &rsmallDying, &rgreatRunDown, &rgreatRunRight2, &rgreatStopLeft, &rsmallRunDown, &rgreatRunLeft2, &rgreatRunRight, &rgreatStopRight \
-    }
-
-image rgreatGood, rgreatRunLeft, rgreatRunUp, rsmallDying, rgreatRunDown, rgreatRunRight2, rgreatStopLeft, rsmallRunDown, rgreatRunLeft2, rgreatRunRight, rgreatStopRight;
+#include "bind.h"
 
 void initializeImages()
 {
     image *imgList[] = allImages;
-    for (u8 index = 0; index < countImages; index++)
+    for (u8 index = 0; index < COUNT_IMAGES; index++)
     {
         image *img = imgList[index];
-        u32 countPixels = img->height * img->width;
+        u32 countPixels = img->size.height * img->size.width;
         u32 sizeData = countPixels * sizeof(pixel);
         pixel *pixels = malloc(sizeData);
         for (u32 i = 0; i < countPixels; i++)

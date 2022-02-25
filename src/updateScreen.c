@@ -13,7 +13,7 @@ void hiddenPixel(pixel *p, void *(*callBackFunction)(void *), void *argument)
         callBackFunction(argument);
 }
 
-void drawImg(image *img, u32 x, u32 y)
+void drawImg(image *img, position posit)
 {
     u32 count = 0;
     pixel *p;
@@ -23,7 +23,7 @@ void drawImg(image *img, u32 x, u32 y)
         for (u32 j = 0; j < img->size.width; j++)
         {
             pixel p = img->pixels[count++];
-            gotoxy(j + x, i + y);
+            gotoxy(j + posit.x, i + posit.y);
             bgColor(p.r, p.g, p.b);
             hiddenPixel(&p, callBackfuntion, &" ");
         }
@@ -51,7 +51,7 @@ void drawnBorder()
 }
 void *updateScreen()
 {
-    static u8 borderDrawn = 0;
-    if (borderDrawn == 0)
-        drawnBorder();
+    clear();
+    drawnBorder();
+    drawImg(person.state, person.posi);
 }

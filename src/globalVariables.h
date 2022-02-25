@@ -16,4 +16,4 @@
     }
 
 map thisMap = {.s = {.height = 100, .width = 100}, .color = {.r = 255, .g = 255, .b = 255}};
-// object person;
+object person;

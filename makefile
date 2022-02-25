@@ -1,5 +1,5 @@
 flagsDev = -g -W -Wall -ansi -pedantic
-libs = -lpthread
+libs = # -lpthread
 libsLinux = $(libs) -lncurses
 libsWindows = $(libs)
 appFolder = build

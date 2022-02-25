@@ -1,42 +1,52 @@
+flagsDev = -g -W -Wall -ansi -pedantic
+libs = -lpthread
+libsLinux = $(libs) -lncurses
+libsWindows = $(libs)
+appFolder = build
+aplication = build/ShellArchero
+aplicationWindows = $(aplication).exe
+mainObj = build/main.o
+mainPrg = src/main.c
+
 build:objMain
-	gcc -o build/ShellArchero build/main.o -O3 -lncurses 
+	gcc -o $(aplication) $(mainObj) -O3 $(libsLinux) 
 
 windows:objMain
-	gcc -o build/ShellArchero.exe build/main.o -O3
+	gcc -o $(aplicationWindows) $(mainObj) -O3 $(libsWindows) 
 
 dev:objMain
-	gcc src/main.c -c -o build/ShellArchero -W -Wall -ansi -pedantic -lncurses 
+	gcc $(mainPrg) -c -o $(aplication) $(flagsDev) $(libsLinux)  
 
 devWindows:objMain
-	gcc -o build/ShellArchero.exe build/main.o -W -Wall -ansi -pedantic
+	gcc -o $(aplicationWindows) $(mainObj) $(flagsDev) $(libsWindows) 
 
 objMain:buildFolder
-	gcc -c src/main.c  -o build/main.o -O3
+	gcc -c $(mainPrg)  -o $(mainObj) -O3
 
 windowsLinux: buildFolder
-	i686-w64-mingw32-gcc -c src/main.c  -o build/main.o -O3
-	i686-w64-mingw32-gcc -o build/ShellArchero.exe build/main.o -O3
+	i686-w64-mingw32-gcc -c $(mainPrg)  -o $(mainObj) -O3
+	i686-w64-mingw32-gcc -o $(aplicationWindows) $(mainObj) -O3 $(libsWindows)
 
 buildFolder:
-	@mkdir -p build
+	@mkdir -p $(appFolder)
 
 run:
-	./build/ShellArchero
+	./$(aplication)
 	
 
 runWindows:
 	@false
-	@./build/ShellArchero.exe
+	@./$(aplicationWindows)
 
 valgrind: build
-	valgrind build/ShellArchero
+	valgrind $(aplication)
 
 clear: 
-	rm -rf build
+	rm -rf $(appFolder)
 	rm -rf *.o
 
 sprites2c: buildFolder
-	gcc dev/sprites/sprites2c.c -fdiagnostics-color=always -g -o build/sprites2c 
+	gcc dev/sprites/sprites2c.c $(flagsDev) -o $(appFolder)/sprites2c 
 	rm -f src/sprites.h
 	./build/sprites2c > src/sprites.h
 	

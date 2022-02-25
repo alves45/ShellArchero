@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "sprites.h": "c",
+        "types.h": "c",
+        "globalvariables.h": "c",
+        "stdarg.h": "c",
+        "getchlinux.c": "cpp",
+        "bind.h": "c",
+        "malloc.h": "c",
+        "stdio.h": "c"
+    }
+}

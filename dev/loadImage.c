@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include "../../src/types/rustTypes.h"
-#include "../../src/types/image.h"
+#include "../src/types/rustTypes.h"
+#include "../src/types/image.h"
 
 image *loadImage(char *location)
 {
@@ -101,16 +101,16 @@ image *loadImage(char *location)
     u32 imgSize = width * height;
     // char *data = malloc(imgSize * sizeof(pixel));
 
-    for (u32 i = 0; i < imgSize * sizeof(pixel)-1; ++i)
+    for (u32 i = 0; i < imgSize * sizeof(pixel) - 1; ++i)
     {
         // data[i] = result[pdOffset + i];
-        printf("0x%02x,\n",result[pdOffset++]);
+        printf("0x%02x,\n", result[pdOffset++]);
         if (i % (width * sizeof(pixel)) == 0)
         {
             pdOffset += rowBytes - usedRowBytes;
         }
     }
-    printf("0x%02x ",result[pdOffset++]);
+    printf("0x%02x ", result[pdOffset++]);
     // img->pixels = (pixel *)data;
     free(result);
     return img;
@@ -120,7 +120,7 @@ void releaseImage(image *img)
 {
     if (img)
     {
-        if ((img->pixels)==NULL)
+        if ((img->pixels) == NULL)
             free(img->pixels);
         free(img);
     }

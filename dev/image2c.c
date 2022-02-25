@@ -4,8 +4,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../src/types/rustTypes.h"
-#include "../../src/types/image.h"
+#include "../src/types/rustTypes.h"
+#include "../src/types/image.h"
 
 #define TEMP_BUF_SIZE 4096
 #define DEFAULT_READ_SIZE 256

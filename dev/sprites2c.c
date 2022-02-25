@@ -10,7 +10,7 @@
 // use "make sprites2c" for convert the sprites in to C code.
 #define extensionImageSupported "bmp"
 // #define imagesDirPath "dev/sprites/images/fromGimp/"
-#define imagesDirPath "images/fromGimp3/"
+#define imagesDirPath "images/fromGimp35/"
 
 void main()
 {
@@ -43,10 +43,10 @@ void main()
         GetLeafName(imagePath, imageName);
         FixName(imageName);
         printf("#ifndef %s_define\n#define %s_define 1\n", imageName, imageName);
-        printf("const char %sPixels [] = {\n", imageName);
+        printf("char %sPixels [] = {\n", imageName);
         image *img = loadImage(imagePath2);
         printf("};\n");
-        printf("const image %s = {.height = %d, .width = %d, .pixels = (pixel *)%sPixels};\n\n", imageName, img->height, img->width, imageName);
+        printf("image %s = {.height = %d, .width = %d, .pixels = (pixel *)%sPixels};\n\n", imageName, img->height, img->width, imageName);
         printf("#endif\n\n\n\n");
         free(imagePath);
         free(imageName);

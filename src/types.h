@@ -85,6 +85,7 @@ typedef struct object
     u8 health;
     u8 speed;
     image *state;
+    image *oldState;
     u8 damage;
     position posi;
     position oldPosi;

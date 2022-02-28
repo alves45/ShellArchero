@@ -30,6 +30,23 @@ void drawImg(image *img, position posit)
     }
 }
 
+void drawImgNone(image *img, position posit)
+{
+    u32 count = 0;
+    pixel *p;
+    void *callBackfuntion = &printf;
+    for (u32 i = 0; i < img->size.height; i++)
+    {
+        for (u32 j = 0; j < img->size.width; j++)
+        {
+            pixel p = img->pixels[count++];
+            gotoxy(j + posit.x, i + posit.y);
+            bgColor(0, 0, 0);
+            hiddenPixel(&p, callBackfuntion, &" ");
+        }
+    }
+}
+
 void drawnBorder()
 {
     pixel p = thisMap.color;
@@ -51,7 +68,9 @@ void drawnBorder()
 }
 void *updateScreen()
 {
-    clear();
     drawnBorder();
+    drawImgNone(person.oldState, person.oldPosi);
+    person.oldState = person.state;
+    person.oldPosi = person.posi;
     drawImg(person.state, person.posi);
 }

@@ -18,8 +18,10 @@ void main()
     person.health = 255;
     person.posi.x = 2;
     person.posi.y = 2;
+    person.oldPosi = person.posi;
     person.speed = 1;
     person.state = &greatGood;
+    person.oldState = &greatGood;
     while (1)
     {
         u8 key = getch();
@@ -29,23 +31,25 @@ void main()
         case 'Q':
             goto EndWhile;
             break;
-            goto EndWhile;
-            break;
         case 'w':
         case 'W':
             person.posi.y -= person.speed;
+            person.state = &greatRunUp;
             break;
         case 's':
         case 'S':
             person.posi.y += person.speed;
+            person.state = &greatRunDown;
             break;
         case 'a':
         case 'A':
             person.posi.x -= person.speed;
+            person.state = &greatRunRight2;
             break;
         case 'd':
         case 'D':
             person.posi.x += person.speed;
+            person.state = &greatRunLeft2;
             break;
         default:
             break;

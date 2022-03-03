@@ -37,6 +37,11 @@
 #include "updateScreen.c"
 #endif
 
+#ifndef updateScreen_auxFuncslib
+#define updateScreen_auxFuncslib 1
+#include "updateScreen.auxFuncs.c"
+#endif
+
 #ifndef globalVariables
 #define globalVariables 1
 #include "globalVariables.h"

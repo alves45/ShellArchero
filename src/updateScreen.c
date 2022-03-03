@@ -1,13 +1,5 @@
 #include "bind.h"
 
-#define clear() printf("\033[H\033[J")
-#define hideCursor() printf("\e[?25l")
-#define showCursor() printf("\e[?25h")
-#define textColor(r, g, b) printf("\x1b[38;2;%d;%d;%dm", r, g, b)
-#define bgColor(r, g, b) printf("\x1b[48;2;%d;%d;%dm", r, g, b)
-#define gotoxy(x, y) printf("\x1b[%d;%df", y, x)
-#define checkPixelColor(p) p->g < (p->b + FILTER_COLOR) && p->g < (p->r + FILTER_COLOR)
-
 void drawImg(image *img, position posit)
 {
     u32 count = 0;

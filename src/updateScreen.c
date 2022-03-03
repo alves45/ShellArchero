@@ -6,26 +6,23 @@
 #define textColor(r, g, b) printf("\x1b[38;2;%d;%d;%dm", r, g, b)
 #define bgColor(r, g, b) printf("\x1b[48;2;%d;%d;%dm", r, g, b)
 #define gotoxy(x, y) printf("\x1b[%d;%df", y, x)
-
-void hiddenPixel(pixel *p, void *(*callBackFunction)(void *), void *argument)
-{
-    if (p->g < (p->b + FILTER_COLOR) && p->g < (p->r + FILTER_COLOR))
-        callBackFunction(argument);
-}
+#define checkPixelColor(p) p->g < (p->b + FILTER_COLOR) && p->g < (p->r + FILTER_COLOR)
 
 void drawImg(image *img, position posit)
 {
     u32 count = 0;
     pixel *p;
-    void *callBackfuntion = &printf;
     for (u32 i = 0; i < img->size.height; i++)
     {
         for (u32 j = 0; j < img->size.width; j++)
         {
-            pixel p = img->pixels[count++];
-            gotoxy(j + posit.x, i + posit.y);
-            bgColor(p.r, p.g, p.b);
-            hiddenPixel(&p, callBackfuntion, &" ");
+            p = &(img->pixels[count++]);
+            if (checkPixelColor(p))
+            {
+                gotoxy(j + posit.x, i + posit.y);
+                bgColor(p->r, p->g, p->b);
+                printf(" ");
+            }
         }
     }
 }
@@ -34,15 +31,17 @@ void drawImgNone(image *img, position posit)
 {
     u32 count = 0;
     pixel *p;
-    void *callBackfuntion = &printf;
     for (u32 i = 0; i < img->size.height; i++)
     {
         for (u32 j = 0; j < img->size.width; j++)
         {
-            pixel p = img->pixels[count++];
-            gotoxy(j + posit.x, i + posit.y);
-            bgColor(0, 0, 0);
-            hiddenPixel(&p, callBackfuntion, &" ");
+            p = &(img->pixels[count++]);
+            if (checkPixelColor(p))
+            {
+                gotoxy(j + posit.x, i + posit.y);
+                bgColor(0, 0, 0);
+                printf(" ");
+            }
         }
     }
 }
